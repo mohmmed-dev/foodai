@@ -7,12 +7,16 @@
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-            <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+            {{-- <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
                 <x-app-logo />
-            </a>
+            </a> --}}
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
+                <flux:navlist.group :heading="__('Main')" class="grid">
+                    <flux:navlist.item icon="home" :href="route('addProduct')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                </flux:navlist.group>
+
+                <flux:navlist.group :heading="__('Countnet')" class="grid mt-10">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
@@ -20,17 +24,18 @@
             <flux:spacer />
 
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
+                {{-- <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                 {{ __('Repository') }}
                 </flux:navlist.item>
 
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
                 {{ __('Documentation') }}
-                </flux:navlist.item>
+                </flux:navlist.item> --}}
             </flux:navlist>
 
             <!-- Desktop User Menu -->
-            <flux:dropdown class="hidden lg:block" position="bottom" align="start">
+            @auth
+                <flux:dropdown position="bottom" align="start">
                 <flux:profile
                     :name="auth()->user()->name"
                     :initials="auth()->user()->initials()"
@@ -73,13 +78,17 @@
                     </form>
                 </flux:menu>
             </flux:dropdown>
+            @else
+                {{-- Butoon login --}}
+            @endauth
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
         <flux:header class="lg:hidden">
-            <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
+            @auth
+                <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
-            <flux:spacer />
+            {{-- <flux:spacer />
 
             <flux:dropdown position="top" align="end">
                 <flux:profile
@@ -122,7 +131,10 @@
                         </flux:menu.item>
                     </form>
                 </flux:menu>
-            </flux:dropdown>
+            </flux:dropdown> --}}
+            @else
+            {{-- Butoon login --}}
+            @endauth
         </flux:header>
 
         {{ $slot }}

@@ -1,61 +1,48 @@
 <div class="flex justify-center items-center flex-col">
     {{-- Care about people's approval and you will be their prisoner. --}}
-        <div class="flex w-full max-w-xl text-center flex-col gap-1">
+        <form wire:submit='save' class="flex w-full max-w-xl text-center flex-col gap-1">
+                    @if($photo)
+                            <img src="{{$photo->temporaryUrl()}}" width="400px">
+                    @endif
                     <span class="w-fit pl-0.5 text-sm text-on-surface dark:text-on-surface-dark">Content Image</span>
                     <div class="flex rounded-2xl w-full flex-col items-center justify-center gap-2 rounded-radius border border-dashed border-outline p-8 text-on-surface dark:border-outline-dark dark:text-on-surface-dark">
                     <div class="group">
                         <label for="fileInputDragDrop" class="font-medium text-primary group-focus-within:underline dark:text-primary-dark">
-                            <input id="fileInputDragDrop" type="file" class="sr-only" aria-describedby="validFileFormats" />
+                            <input id="fileInputDragDrop" type="file" wire:model="photo" aria-describedby="validFileFormats" />
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-9">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
                             </svg>
                         </label>
                     </div>
-                <small id="validFileFormats">PNG, JPG, WebP - Max 5MB</small>
+                    <small id="validFileFormats">PNG, JPG, WebP - Max 5MB</small>
+                </div>
+                @error('photo')
+                    <span class="error">{{$message}}</span>
+                @enderror
+            <div class="mx-auto p-2 w-full">
+                <h2 class="text-on-surface dark:text-on-surface-dark font-semibold mb-3">{{__("Choose Model")}}</h2>
+                <div class="flex flex-col gap-2 max-h-64 overflow-y-auto rounded-lg border border-outline dark:border-outline-dark bg-surface-alt dark:bg-surface-dark-alt p-3 scrollbar-thin scrollbar-thumb-outline scrollbar-track-transparent">
+                    <label wire:model="model" class="group relative flex w-full min-w-52 items-center justify-start gap-3 rounded-lg border border-outline bg-surface-alt px-4 py-3 font-medium text-on-surface cursor-pointer transition-all duration-300 ease-in-out hover:border-primary/60 hover:bg-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark hover:dark:border-primary-dark/70">
+                        <input wire:model="model" value="hlala"  type="radio" name="radioPlatform" class="peer before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary before:opacity-0 checked:border-primary checked:bg-primary checked:before:opacity-100 focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary transition-all duration-300 dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark" checked>
+                        <span class="text-sm">Mac</span>
+                        <div class="absolute inset-0 rounded-lg opacity-0 peer-checked:opacity-100 peer-checked:border peer-checked:border-primary peer-checked:shadow-[0_0_12px_2px_rgba(99,102,241,0.4)] dark:peer-checked:shadow-[0_0_12px_2px_rgba(129,140,248,0.4)] transition-all duration-300"></div>
+                    </label>
+                    @error('model')
+                        <span class="error">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="flex items-center justify-start gap-2 my-3 font-medium text-on-surface has-disabled:opacity-75 dark:text-on-surface-dark">
+                    <input wire:model="user" value="true" id="radioMac" type="radio" class="before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:invisible before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary checked:border-primary checked:bg-primary checked:before:visible focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary disabled:cursor-not-allowed dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark" name="radioDefault" value="" checked >
+                    <label for="radioMac" class="text-sm">Mac</label>
+                    @error('user')
+                        <span class="error">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="justify-end flex mt-4">
+                    <flux:button type='submit'>Button</flux:button>
+                </div>
             </div>
         </div>
-        <div class="mx-auto p-4 w-full">
-            <h2 class="text-on-surface dark:text-on-surface-dark font-semibold mb-3">{{__("Choose Model")}}</h2>
-            <div class="flex flex-col gap-2 max-h-64 overflow-y-auto rounded-lg border border-outline dark:border-outline-dark bg-surface-alt dark:bg-surface-dark-alt p-3 scrollbar-thin scrollbar-thumb-outline scrollbar-track-transparent">
-                <label class="group relative flex w-full min-w-52 items-center justify-start gap-3 rounded-lg border border-outline bg-surface-alt px-4 py-3 font-medium text-on-surface cursor-pointer transition-all duration-300 ease-in-out hover:border-primary/60 hover:bg-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark hover:dark:border-primary-dark/70">
-                    <input type="radio" name="radioPlatform" class="peer before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary before:opacity-0 checked:border-primary checked:bg-primary checked:before:opacity-100 focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary transition-all duration-300 dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark" checked>
-                    <span class="text-sm">Mac</span>
-                    <div class="absolute inset-0 rounded-lg opacity-0 peer-checked:opacity-100 peer-checked:border peer-checked:border-primary peer-checked:shadow-[0_0_12px_2px_rgba(99,102,241,0.4)] dark:peer-checked:shadow-[0_0_12px_2px_rgba(129,140,248,0.4)] transition-all duration-300"></div>
-                </label>
-                <label class="group relative flex w-full min-w-52 items-center justify-start gap-3 rounded-lg border border-outline bg-surface-alt px-4 py-3 font-medium text-on-surface cursor-pointer transition-all duration-300 ease-in-out hover:border-primary/60 hover:bg-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark hover:dark:border-primary-dark/70">
-                    <input type="radio" name="radioPlatform" class="peer before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary before:opacity-0 checked:border-primary checked:bg-primary checked:before:opacity-100 focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary transition-all duration-300 dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark">
-                    <span class="text-sm">Windows</span>
-                    <div class="absolute inset-0 rounded-lg opacity-0 peer-checked:opacity-100 peer-checked:border peer-checked:border-primary peer-checked:shadow-[0_0_12px_2px_rgba(99,102,241,0.4)] dark:peer-checked:shadow-[0_0_12px_2px_rgba(129,140,248,0.4)] transition-all duration-300"></div>
-                </label>
-                <label class="group relative flex w-full min-w-52 items-center justify-start gap-3 rounded-lg border border-outline bg-surface-alt px-4 py-3 font-medium text-on-surface cursor-pointer transition-all duration-300 ease-in-out hover:border-primary/60 hover:bg-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark hover:dark:border-primary-dark/70">
-                    <input type="radio" name="radioPlatform" class="peer before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary before:opacity-0 checked:border-primary checked:bg-primary checked:before:opacity-100 focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary transition-all duration-300 dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark">
-                    <span class="text-sm">Linux</span>
-                    <div class="absolute inset-0 rounded-lg opacity-0 peer-checked:opacity-100 peer-checked:border peer-checked:border-primary peer-checked:shadow-[0_0_12px_2px_rgba(99,102,241,0.4)] dark:peer-checked:shadow-[0_0_12px_2px_rgba(129,140,248,0.4)] transition-all duration-300"></div>
-                </label>
-                <label class="group relative flex w-full min-w-52 items-center justify-start gap-3 rounded-lg border border-outline bg-surface-alt px-4 py-3 font-medium text-on-surface cursor-pointer transition-all duration-300 ease-in-out hover:border-primary/60 hover:bg-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark hover:dark:border-primary-dark/70">
-                    <input type="radio" name="radioPlatform" class="peer before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary before:opacity-0 checked:border-primary checked:bg-primary checked:before:opacity-100 focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary transition-all duration-300 dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark">
-                    <span class="text-sm">Linux</span>
-                    <div class="absolute inset-0 rounded-lg opacity-0 peer-checked:opacity-100 peer-checked:border peer-checked:border-primary peer-checked:shadow-[0_0_12px_2px_rgba(99,102,241,0.4)] dark:peer-checked:shadow-[0_0_12px_2px_rgba(129,140,248,0.4)] transition-all duration-300"></div>
-                </label>
-                <label class="group relative flex w-full min-w-52 items-center justify-start gap-3 rounded-lg border border-outline bg-surface-alt px-4 py-3 font-medium text-on-surface cursor-pointer transition-all duration-300 ease-in-out hover:border-primary/60 hover:bg-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark hover:dark:border-primary-dark/70">
-                    <input type="radio" name="radioPlatform" class="peer before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary before:opacity-0 checked:border-primary checked:bg-primary checked:before:opacity-100 focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary transition-all duration-300 dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark">
-                    <span class="text-sm">Linux</span>
-                    <div class="absolute inset-0 rounded-lg opacity-0 peer-checked:opacity-100 peer-checked:border peer-checked:border-primary peer-checked:shadow-[0_0_12px_2px_rgba(99,102,241,0.4)] dark:peer-checked:shadow-[0_0_12px_2px_rgba(129,140,248,0.4)] transition-all duration-300"></div>
-                </label>
-                <label class="group relative flex w-full min-w-52 items-center justify-start gap-3 rounded-lg border border-outline bg-surface-alt px-4 py-3 font-medium text-on-surface cursor-pointer transition-all duration-300 ease-in-out hover:border-primary/60 hover:bg-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark hover:dark:border-primary-dark/70">
-                    <input type="radio" name="radioPlatform" class="peer before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary before:opacity-0 checked:border-primary checked:bg-primary checked:before:opacity-100 focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary transition-all duration-300 dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark">
-                    <span class="text-sm">Linux</span>
-                    <div class="absolute inset-0 rounded-lg opacity-0 peer-checked:opacity-100 peer-checked:border peer-checked:border-primary peer-checked:shadow-[0_0_12px_2px_rgba(99,102,241,0.4)] dark:peer-checked:shadow-[0_0_12px_2px_rgba(129,140,248,0.4)] transition-all duration-300"></div>
-                </label>
-            </div>
-            <div class="flex items-center justify-start gap-2 my-3 font-medium text-on-surface has-disabled:opacity-75 dark:text-on-surface-dark">
-                <input id="radioMac" type="radio" class="before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:invisible before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary checked:border-primary checked:bg-primary checked:before:visible focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary disabled:cursor-not-allowed dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark" name="radioDefault" value="" checked >
-                <label for="radioMac" class="text-sm">Mac</label>
-            </div>
-            <div class="justify-end flex mt-4">
-                <flux:button>Button</flux:button>
-            </div>
-        </div>
-    </div>
+    </form>
 </div>
