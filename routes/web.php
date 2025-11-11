@@ -6,15 +6,16 @@ use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
+use App\Http\Controllers\ProviderController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('addProduct', 'addProduct')
-    ->name('addProduct');
+Route::view('screen', 'screen')
+    ->name('screen');
 
-Route::view('dashboard', 'addProduct')
+Route::view('dashboard', 'screen')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -36,3 +37,8 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 });
+
+Route::get('auth/{provider}/redirect',[ProviderController::class,'providerRedirect']
+)->name('provider.redirect');
+
+Route::get('auth/{provider}/callback',[ProviderController::class,'providerCallback']);

@@ -13,12 +13,11 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Main')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('addProduct')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('screen')" :current="request()->routeIs('screen')" wire:navigate>{{ __('Screen') }}</flux:navlist.item>
                 </flux:navlist.group>
-
-                <flux:navlist.group :heading="__('Countnet')" class="grid mt-10">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                </flux:navlist.group>
+                @auth
+                    @livewire('content.content-scroll', key(auth()->id()))
+                @endauth
             </flux:navlist>
 
             <flux:spacer />
@@ -79,7 +78,15 @@
                 </flux:menu>
             </flux:dropdown>
             @else
-                {{-- Butoon login --}}
+            {{-- Butoon login --}}
+            <div class="">
+            <flux:button  variant="primary" :href="route('login')" class="mb-1 mx-1 w-full" wire:navigate>
+                {{ __('Log In') }}
+            </flux:button>
+            <flux:button  :href="route('register')" class="mb-1 mx-1 w-full" wire:navigate>
+                {{ __('Register') }}
+            </flux:button>
+            </div>
             @endauth
         </flux:sidebar>
 
@@ -134,6 +141,14 @@
             </flux:dropdown> --}}
             @else
             {{-- Butoon login --}}
+            <div class="flex justify-end items-center gap-x-1 w-full">
+                <flux:button  :href="route('register')" class="mb-1 mx-1  w-1/4" wire:navigate>
+                {{ __('Register') }}
+                </flux:button>
+                <flux:button  variant="primary" :href="route('login')" class="mb-1 mx-1 w-1/4" wire:navigate>
+                    {{ __('Log In') }}
+                </flux:button>
+            </div>
             @endauth
         </flux:header>
 
