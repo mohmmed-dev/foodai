@@ -1,6 +1,6 @@
 <div class="flex justify-center items-center flex-col">
     {{-- Care about people's approval and you will be their prisoner. --}}
-        <form wire:submit='save' class="flex w-full max-w-xl text-center flex-col gap-1">
+        {{-- <form wire:submit='save' class="flex w-full max-w-xl text-center flex-col gap-1">
                     @if($photo)
                             <img src="{{$photo->temporaryUrl()}}" width="400px">
                     @endif
@@ -24,18 +24,21 @@
                 <h2 class="text-on-surface dark:text-on-surface-dark font-semibold mb-3">{{__("Choose Model")}}</h2>
                 <div class="flex flex-col gap-2 max-h-64 overflow-y-auto rounded-lg border border-outline dark:border-outline-dark bg-surface-alt dark:bg-surface-dark-alt p-3 scrollbar-thin scrollbar-thumb-outline scrollbar-track-transparent">
                     <label wire:model="model" class="group relative flex w-full min-w-52 items-center justify-start gap-3 rounded-lg border border-outline bg-surface-alt px-4 py-3 font-medium text-on-surface cursor-pointer transition-all duration-300 ease-in-out hover:border-primary/60 hover:bg-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark hover:dark:border-primary-dark/70">
-                        <input wire:model="model" value="hlala"  type="radio" name="radioPlatform" class="peer before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary before:opacity-0 checked:border-primary checked:bg-primary checked:before:opacity-100 focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary transition-all duration-300 dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark" checked>
-                        <span class="text-sm">Mac</span>
+                        <input wire:model="model" value="ProductAnalyzer"  type="radio" name="radioPlatform" class="peer before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary before:opacity-0 checked:border-primary checked:bg-primary checked:before:opacity-100 focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary transition-all duration-300 dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark" checked>
+                        <span class="text-sm">{{__("Product Analyzer")}}</span>
+                        <div class="absolute inset-0 rounded-lg opacity-0 peer-checked:opacity-100 peer-checked:border peer-checked:border-primary peer-checked:shadow-[0_0_12px_2px_rgba(99,102,241,0.4)] dark:peer-checked:shadow-[0_0_12px_2px_rgba(129,140,248,0.4)] transition-all duration-300"></div>
+                    </label>
+                    <label wire:model="model" class="group relative flex w-full min-w-52 items-center justify-start gap-3 rounded-lg border border-outline bg-surface-alt px-4 py-3 font-medium text-on-surface cursor-pointer transition-all duration-300 ease-in-out hover:border-primary/60 hover:bg-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark hover:dark:border-primary-dark/70">
+                        <input wire:model="model" value="MealCreator"  type="radio" name="radioPlatform" class="peer before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary before:opacity-0 checked:border-primary checked:bg-primary checked:before:opacity-100 focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary transition-all duration-300 dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark" checked>
+                        <span class="text-sm">{{__("Meal Creator")}}</span>
+                        <div class="absolute inset-0 rounded-lg opacity-0 peer-checked:opacity-100 peer-checked:border peer-checked:border-primary peer-checked:shadow-[0_0_12px_2px_rgba(99,102,241,0.4)] dark:peer-checked:shadow-[0_0_12px_2px_rgba(129,140,248,0.4)] transition-all duration-300"></div>
+                    </label>
+                    <label wire:model="model" class="group relative flex w-full min-w-52 items-center justify-start gap-3 rounded-lg border border-outline bg-surface-alt px-4 py-3 font-medium text-on-surface cursor-pointer transition-all duration-300 ease-in-out hover:border-primary/60 hover:bg-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark hover:dark:border-primary-dark/70">
+                        <input wire:model="model" value="PreparedDishAnalyzer"  type="radio" name="radioPlatform" class="peer before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary before:opacity-0 checked:border-primary checked:bg-primary checked:before:opacity-100 focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary transition-all duration-300 dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark" checked>
+                        <span class="text-sm">{{__("Prepared Dish Analyzer")}}</span>
                         <div class="absolute inset-0 rounded-lg opacity-0 peer-checked:opacity-100 peer-checked:border peer-checked:border-primary peer-checked:shadow-[0_0_12px_2px_rgba(99,102,241,0.4)] dark:peer-checked:shadow-[0_0_12px_2px_rgba(129,140,248,0.4)] transition-all duration-300"></div>
                     </label>
                     @error('model')
-                        <span class="error">{{$message}}</span>
-                    @enderror
-                </div>
-                <div class="flex items-center justify-start gap-2 my-3 font-medium text-on-surface has-disabled:opacity-75 dark:text-on-surface-dark">
-                    <input wire:model="user" value="true" id="radioMac" type="radio" class="before:content[''] relative h-4 w-4 appearance-none rounded-full border border-outline bg-surface-alt before:invisible before:absolute before:left-1/2 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-on-primary checked:border-primary checked:bg-primary checked:before:visible focus:outline-2 focus:outline-offset-2 focus:outline-outline-strong checked:focus:outline-primary disabled:cursor-not-allowed dark:border-outline-dark dark:bg-surface-dark-alt dark:before:bg-on-primary-dark dark:checked:border-primary-dark dark:checked:bg-primary-dark dark:focus:outline-outline-dark-strong dark:checked:focus:outline-primary-dark" name="radioDefault" value="" checked >
-                    <label for="radioMac" class="text-sm">Mac</label>
-                    @error('user')
                         <span class="error">{{$message}}</span>
                     @enderror
                 </div>
@@ -44,5 +47,22 @@
                 </div>
             </div>
         </div>
-    </form>
+    </form> --}}
+    <flux:modal.trigger name="save">
+    <flux:button>{{__("Seen")}}</flux:button>
+    </flux:modal.trigger>
+    <flux:modal name="save" class="md:w-96">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">Update profile</flux:heading>
+                <flux:text class="mt-2">Make changes to your personal details.</flux:text>
+            </div>
+            <flux:input label="Name" placeholder="Your name" />
+            <flux:input label="Date of birth" type="date" />
+            <div class="flex">
+                <flux:spacer />
+                <flux:button type="submit" variant="primary">Save changes</flux:button>
+            </div>
+        </div>
+    </flux:modal>
 </div>

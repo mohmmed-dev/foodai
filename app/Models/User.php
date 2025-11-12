@@ -61,4 +61,20 @@ class User extends Authenticatable
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    /**
+     * User has one personality.
+     */
+    public function personality()
+    {
+        return $this->hasOne(Personality::class);
+    }
+
+    /**
+     * User has many content items.
+     */
+    public function contents()
+    {
+        return $this->hasMany(Content::class);
+    }
 }

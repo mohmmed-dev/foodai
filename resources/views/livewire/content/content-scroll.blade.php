@@ -1,10 +1,9 @@
-<div>
+<div class=" overflow-y-auto">
     {{-- The best athlete wants his opponent at his best. --}}
-    <flux:navlist.group :heading="__('Countnet')" class="grid mt-10">
+    <flux:navlist.group :heading="__('Countnet')" class="grid mt-10 overflow-y-auto">
         @forelse ($contents as $content)
         <flux:navlist.item  :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ $content->title }}</flux:navlist.item>
         @empty
-
         @endforelse
     </flux:navlist.group>
     @if ($contents->hasMorePages())

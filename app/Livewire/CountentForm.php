@@ -18,6 +18,7 @@ class CountentForm extends Component
 
 
     public function save() {
+        dd('dd');
         $date = $this->validate();
         dd($date);
         // $this->photo->store('potots');

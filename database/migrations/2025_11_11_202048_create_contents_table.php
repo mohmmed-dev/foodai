@@ -18,6 +18,7 @@ return new class extends Migration
             $table->json('body')->nullable();
             $table->string('type')->nullable();
             $table->boolean('share')->default(0);
+            $table->boolean('error')->default(0);
             $table->boolean('self')->default(0);
             $table->timestamps();
         });
