@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('diet_type')->nullable();
             $table->json('allergies')->nullable();
             $table->json('health_goals')->nullable();
+            $table->json('chronic_diabetes')->nullable();
             $table->string('religion')->nullable();
             $table->json('custom_preferences')->nullable();
             $table->timestamps();

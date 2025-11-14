@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('provider_name')->nullable();
             $table->string('provider_token')->nullable();
             $table->string('provider_refresh_token')->nullable();
+            $table->string('lang')->default('en');
             $table->boolean('has_self')->default(false);
             $table->boolean('use_self')->default(false);
         });

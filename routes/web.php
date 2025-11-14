@@ -7,17 +7,16 @@ use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('screen', 'screen')
-    ->name('screen');
+// Route::view('screen', 'screen')
+//     ->name('screen');
 
-Route::view('dashboard', 'screen')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::view('scan', 'scan')->name('scan');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

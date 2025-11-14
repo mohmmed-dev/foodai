@@ -12,7 +12,7 @@ class Profile extends Component
 {
     public string $name = '';
 
-    public string $email = '';
+    // public string $email = '';
 
     /**
      * Mount the component.
@@ -20,7 +20,7 @@ class Profile extends Component
     public function mount(): void
     {
         $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        // $this->email = Auth::user()->email;
     }
 
     /**
@@ -33,21 +33,21 @@ class Profile extends Component
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
 
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($user->id),
-            ],
+            // 'email' => [
+            //     'required',
+            //     'string',
+            //     'lowercase',
+            //     'email',
+            //     'max:255',
+            //     Rule::unique(User::class)->ignore($user->id),
+            // ],
         ]);
 
         $user->fill($validated);
 
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
+        // if ($user->isDirty('email')) {
+        //     $user->email_verified_at = null;
+        // }
 
         $user->save();
 
