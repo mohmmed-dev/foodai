@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('title')->nullable();
             $table->json('body')->nullable();
+            $table->string('image_path')->nullable();
+            $table->string('progress')->default('pending');
             $table->string('type')->nullable();
             $table->boolean('share')->default(0);
             $table->boolean('error')->default(0);

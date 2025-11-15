@@ -14,10 +14,12 @@
         "laravel-lang/common": "^6.7",
         "laravel/fortify": "^1.30",
         "laravel/framework": "^12.0",
+        "laravel/reverb": "^1.0",
         "laravel/socialite": "^5.23",
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.1.1",
         "livewire/volt": "^1.7.0",
+        "openfoodfacts/openfoodfacts-php": "^0.4.0",
         "prism-php/prism": "^0.89.0",
         "ralphjsmit/laravel-seo": "^1.7",
         "spatie/laravel-sitemap": "^7.3"

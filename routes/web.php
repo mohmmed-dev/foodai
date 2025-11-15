@@ -13,8 +13,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Route::view('screen', 'screen')
-//     ->name('screen');
+Route::get('user', UserController::class)
+    ->name('screen');
 
 Route::view('scan', 'scan')->name('scan');
 
