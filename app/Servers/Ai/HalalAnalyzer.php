@@ -12,7 +12,7 @@ use Prism\Prism\Enums\Provider;
 
 Class HalalAnalyzer
 {
-    public function HalalAnalyzerAi(string $photo, string $description)
+    public function HalalAnalyzerAi($withPrompt, string $viewPath)
     {
         $halalAnalyzerSchema = new ObjectSchema(
             name: 'halal_food_analyzer',
@@ -119,7 +119,7 @@ Class HalalAnalyzer
         $response = Prism::structured()
             ->using(Provider::OpenAI, 'gpt-4o')
             ->withSchema($halalAnalyzerSchema)
-            ->withSystemPrompt(view('prompts.analyzer'))
+            ->withSystemPrompt(view("prompts.$viewPath"))
             ->withPrompt('Review the movie Inception')
             ->asStructured();
     }
