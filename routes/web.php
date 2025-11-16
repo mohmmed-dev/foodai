@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +16,8 @@ Route::get('/', function () {
 
 Route::get('user', UserController::class)
     ->name('screen');
+
+Route::get('app/{content:slug}', ContentController::class)->name('content.show');
 
 Route::view('scan', 'scan')->name('scan');
 

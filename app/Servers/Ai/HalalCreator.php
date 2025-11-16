@@ -11,7 +11,7 @@ use Prism\Prism\Schema\BooleanSchema;
 
 Class HalalCreator
 {
-    public function HalalCreatorAI(string $photo, string $description)
+    public static function HalalCreatorAI($withPrompt)
     {
         $halalCreatorSchema = new ObjectSchema(
             name: 'halal_recipe_creator',
@@ -108,9 +108,8 @@ Class HalalCreator
             ->using(Provider::OpenAI, 'gpt-4o')
             ->withSchema($halalCreatorSchema)
             ->withSystemPrompt(view('prompts.analyzer'))
-            ->withPrompt('Review the movie Inception')
+            ->withPrompt($withPrompt)
             ->asStructured();
-
-
+        return $response;
     }
 }

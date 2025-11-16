@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('slug')->unique();
             $table->string('title')->nullable();
             $table->json('body')->nullable();
             $table->string('image_path')->nullable();

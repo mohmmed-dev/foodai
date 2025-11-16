@@ -4,6 +4,7 @@ namespace App\Livewire\Content;
 
 // Flux not imported to avoid undefined type issues; if Flux exists it will be referenced with a fully-qualified name.
 
+use App\Jobs\AiFoodJob;
 use App\Models\Content;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -35,7 +36,6 @@ class ContentForm extends Component
                 'photo' => ['image','required'],
                 'model' => ['string','required','in:ProductAnalyzer,MealCreator,PreparedDishAnalyzer']
             ]);
-
             // Handle Image User
             $content = Content::create([
                 'user_id' => auth()->id(),
@@ -53,12 +53,12 @@ class ContentForm extends Component
                 'title' => $data['text'],
             ]);
         }
+        // Dispatch Job AI Food
+        AiFoodJob::dispatch($content);
 
-        dd($content);
 
 
-
-        return redirect()->route('dashboard');
+        return redirect()->route('content.show',$content->slug);
     }
 
     public function render()
