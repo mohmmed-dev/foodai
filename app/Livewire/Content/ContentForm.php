@@ -4,6 +4,7 @@ namespace App\Livewire\Content;
 
 // Flux not imported to avoid undefined type issues; if Flux exists it will be referenced with a fully-qualified name.
 
+use App\Events\AiResultDone;
 use App\Jobs\AiFoodJob;
 use App\Models\Content;
 use Livewire\Attributes\Validate;
@@ -55,6 +56,9 @@ class ContentForm extends Component
         }
         // Dispatch Job AI Food
         AiFoodJob::dispatch($content);
+
+        // broadcast(new AiResultDone($content));
+
 
 
 

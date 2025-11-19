@@ -32,51 +32,45 @@ class AiFoodJob implements ShouldQueue
      * Execute the job.
      */
     public function handle(): void
-    {   
+    {
         // // Load Content And User
-        // $content = $this->content;
-        // $user = $this->user;
-        // $personality = $user->personality == null ? null : $user->personality->toArray();
-        // // Prepare Image If Available
-        // if($content->image_path) {
-        //     $imagePath = [Image::fromLocalPath(storage_path('app/public/'.$content->image_path))];
-        // } else {
-        //     $imagePath = null;
-        // }
-        // // Select Model AI
-        // $result = null;
-        // if($this->content->type == 'ProductAnalyzer') {
-        //     $result = HalalAnalyzer::HalalAnalyzerAi($content->title,$imagePath);
-        // } elseif($this->content->type == 'MealCreator') {
-        //     $result = HalalCreator::HalalCreatorAI($content->title,$imagePath);
-        // } else {  
+        $content = $this->content;
+        $user = $this->user;
+        $personality = $user->personality == null ? null : $user->personality->toArray();
+        dd($personality);
+        // Prepare Image If Available
+        if($content->image_path) {
+            $imagePath = [Image::fromLocalPath(storage_path('app/public/'.$content->image_path))];
+        } else {
+            $imagePath = null;
+        }
+        // Select Model AI
+        $result = null;
+        if($this->content->type == 'ProductAnalyzer') {
+            $result = HalalAnalyzer::HalalAnalyzerAi($content->title,$imagePath);
+        } elseif($this->content->type == 'MealCreator') {
+            $result = HalalCreator::HalalCreatorAI($content->title,$imagePath);
+        } else {
 
-        // }
-        // // Save Result
-        // if($result) {
-        //     $content->body = $result;
-        //     $content->progress = 'completed';
-        //     $content->save();
-        // } else {
-        //     $content->progress = 'error';
-        //     $content->error = 1;
-        //     $content->save();
-        //     return;
-        // }
-        
-        // $content->title = $result['title'];
-        // $content->save();
-        // dd($this->content.$this->user);
-        
-        // LARAVEL EVENT for notify user
-        // Tryend Job
-            $content = $this->content;
+        }
+        // Save Result
+        if($result) {
+            $content->body = $result;
+            $content->progress = 'completed';
+            $content->save();
+        } else {
             $content->progress = 'error';
-
-            $content->self = 1;
             $content->error = 1;
             $content->save();
-            broadcast(new AiResultDone($content));
+            return;
+        }
+
+        $content->title = $result['title'];
+        $content->save();
+        // LARAVEL EVENT for notify user
+        // Tryend Job
+        broadcast(new AiResultDone($content));
+
             return;
         // End Job
     }

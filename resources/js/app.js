@@ -1,15 +1,26 @@
-import { Livewire , Alpine } from "../../vendor/livewire/livewire/dist/livewire.esm";
+import { Livewire, Alpine } from "../../vendor/livewire/livewire/dist/livewire.esm";
 
-import intersect from '@alpinejs/intersect'
+// تأكد من أن Alpine غير محمل مسبقاً
+if (!window.Alpine) {
+    window.Alpine = Alpine;
+}
 
+// تأخير تحميل plugins حتى يتأكد اكتمال تحميل Alpine
+setTimeout(() => {
+    if (window.Alpine && !window.Alpine.$intersect) {
+        import('@alpinejs/intersect').then(module => {
+            window.Alpine.plugin(module.default);
+        });
+    }
 
-Alpine.plugin(intersect)
+    if (window.Alpine && !window.Alpine.$persist) {
+        import('@alpinejs/persist').then(module => {
+            window.Alpine.plugin(module.default);
+        });
+    }
+}, 0);
+
 Livewire.start();
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allow your team to quickly build robust real-time web applications.
- */
-
 import './echo';
+console.log('sdd');

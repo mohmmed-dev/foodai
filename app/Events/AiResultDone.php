@@ -8,6 +8,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -36,23 +37,12 @@ class AiResultDone implements ShouldBroadcast
         // Broadcast on the private channel named "ai_result.{id}" so it matches
         // the channel definition in routes/channels.php (ai_result.{contentId}).
         return [
-            new PrivateChannel("ai_result.{$this->content->id}"),
-        ];
-    }
-
-    /**
-     * Optional: provide a stable event name that Echo/Livewire can listen for
-     * and a predictable payload.
-     */
-    public function broadcastWith(): array
-    {
-        return [
-            'content' => $this->content->toArray(),
+            new PrivateChannel("ai.result.{$this->content->id}"),
         ];
     }
 
     public function broadcastAs(): string
     {
-        return 'AiResultDone';
+        return 'ai.result.done';
     }
 }
