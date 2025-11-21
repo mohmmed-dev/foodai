@@ -13,8 +13,8 @@
                 </a> --}}
                 <flux:navlist variant="outline">
                     <flux:navlist.group :heading="__('Main')" class="grid">
-                        <flux:navlist.item icon="user" :href="route('analyzer')" class="mb-1" :current="request()->routeIs('analyzer')" wire:navigate>{{ __('Scan') }}</flux:navlist.item>
-                        <flux:navlist.item icon="user" :href="route('analyzer')" :current="request()->routeIs('analyzer')" wire:navigate>{{ __('Scan') }}</flux:navlist.item>
+                        <flux:navlist.item icon="user" :href="route('analyzer')" class="mb-1" :current="request()->routeIs('analyzer')" wire:navigate>{{ __('analyzer') }}</flux:navlist.item>
+                        <flux:navlist.item icon="user" :href="route('creator')" :current="request()->routeIs('creator')" wire:navigate>{{ __('Creater') }}</flux:navlist.item>
                     </flux:navlist.group>
                     @auth
                     <div class="overflow-y-auto flex-1">

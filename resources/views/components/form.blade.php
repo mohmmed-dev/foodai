@@ -31,18 +31,6 @@
                 <flux:button type="submit" variant="primary">{{__("Send")}}</flux:button>
             </div>
         </div>
-        <input name="model" value="ProductAnalyzer" type="hidden">
+        <input name="model" value="{{$model}}" type="hidden">
     </form>
 </div>
-
-<script>
-    function readCoverImage(input) {
-        var file = input.files[0];
-        var reader  = new FileReader();
-        reader.onload = function(e)  {
-            var imgElement = document.getElementById('cover-image-thumb');
-            imgElement.src = e.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
-</script>

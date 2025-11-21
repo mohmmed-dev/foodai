@@ -14,7 +14,7 @@ use Prism\Prism\ValueObjects\Media\Image;
 
 Class HalalAnalyzer
 {
-    public static function HalalAnalyzerAi($title = null , $image_path = null)
+    public static function HalalAnalyzerAi($title = null , $image_path = null,$user_info = null)
     {
         // $halalAnalyzerSchema = new ObjectSchema(
         //     name: 'halal_food_analyzer',
@@ -138,7 +138,6 @@ Class HalalAnalyzer
             ->withPrompt('analyzer',$imagePath)
             ->withClientOptions(['timeout' => 90])
             ->asText();
-        $result = $response;
-        return $result->text;
+        return $response->text;
     }
 }

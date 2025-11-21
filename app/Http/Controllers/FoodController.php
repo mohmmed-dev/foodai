@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Jobs\AiFoodJob;
 use App\Models\Content;
+use App\Traits\StringToJson;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
@@ -12,77 +14,44 @@ use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class FoodController extends Controller
 {
-
+    use StringToJson;
     public function ch() {
-$jsonString = '
-{
-  "common": {
-    "title": "Donuts",
-    "description": "Stack of three donuts with chocolate and sprinkles",
-    "allergens": [
-      "Wheat",
-      "Eggs",
-      "Dairy",
-      "Soy"
-    ],
-    "ingredients": [
-      "Wheat flour",
-      "Sugar",
-      "Vegetable oil",
-      "Eggs",
-      "Milk",
-      "Yeast",
-      "Chocolate",
-      "Sprinkles",
-      "Soy lecithin",
-      "Artificial flavors"
-    ],
-    "nutrition_facts": {
-      "serving_size": "1 donut (approx. 70g)",
-      "calories": "250-350",
-      "total_fat": "12-18g",
-      "saturated_fat": "5-8g",
-      "cholesterol": "30-50mg",
-      "sodium": "150-250mg",
-      "total_carbohydrate": "30-40g",
-      "dietary_fiber": "1-2g",
-      "sugars": "15-20g",
-      "protein": "3-5g"
-    },
-    "health_score": 30,
-    "halal_compliance": {
-      "summary_verdict": "UNCERTAIN",
-      "details": "The Halal status is uncertain due to the presence of gelatin in the sprinkles and unspecified enzymes. The vegetable oil, artificial flavors and additives are also from unknown sources.",
-      "halal_certified": false,
-      "certifier_name": null
-    }
-  },
-  "food_specific": {
-    "personal_advice": "Consider this treat in moderation due to high sugar and fat content. Make sure it suits your current health goals.",
-    "improvement_tips": "Opt for baked donuts instead of fried ones to reduce fat content. Use natural food coloring and sugar alternatives. Check the ingredients of the sprinkles to ensure they are gelatin-free.",
-    "warnings": "High sugar and fat content may not be suitable for individuals with diabetes or heart conditions. May contain hidden allergens."
-  }
-}
-';
+    $content = Content::findOrFail(44);
+    $user = $content->user;
+    $user->load('personality'); 
+    // dd(Arr::except($user->personality->toArray(),['id','user_id','religion','created_at','updated_at']));
 
-// The standard PHP function to convert JSON to a PHP array
-$dataArray = json_decode($jsonString, true);
+    $personality = $user->personality;
 
-// In Laravel, 'dump()' is used for debugging; in standard PHP, you'd use 'print_r' or 'var_dump'.
-// If running in a Laravel environment:
-dump($dataArray);
-
-
-
-    $count = Content::findOrFail(40);
-    dump(str_replace());
+    $allergies = json_encode($personality->allergies);
+    $chronic_diabetes = json_encode($personality->chronic_diabetes);
+    $health_goals = json_encode($personality->health_goals);
+    $custom_preferences = json_encode($personality->custom_preferences);
+    $text = "
+        gender:$personality->gender
+        age:$personality->age
+        weight:$personality->weight
+        height:$personality->height
+        activity_level:$personality->activity_level
+        bmr:$personality->bmr
+        tdee:$personality->tdee
+        goal:$personality->goal
+        chronic_diabetes:$chronic_diabetes
+        allergies:$allergies
+        health_goals:$health_goals
+        custom_preferences:$custom_preferences
+    ";
+    $text = preg_replace('/\s+/','',$text);
+    dd(trim($text));
     }
     public function creator() {
-        return view('foodAi.creator');
+        $model = 'MealCreator';
+        return view('foodAi.food',compact('model'));
     }
 
     public function analyzer() {
-        return view('foodAi.analyzer');
+        $model = 'ProductAnalyzer';
+        return view('foodAi.food',compact('model'));
     }
 
     public function make(Request $request) {

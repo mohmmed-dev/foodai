@@ -11,7 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\FoodController;
 
-Route::get('/', function () {
+Route::get('/ss', function () {
     return view('welcome');
 })->name('home');
 
@@ -22,8 +22,8 @@ Route::get('app/{content:slug}', ContentController::class)->name('content.show')
 
 Route::controller(FoodController::class)->group(function() {
     Route::get('ch', 'ch')->name('ch');
+    Route::get('', 'analyzer')->name('analyzer');
     Route::get('creator', 'creator')->name('creator');
-    Route::get('analyzer', 'analyzer')->name('analyzer');
     Route::post('scan', 'make')->name('scan');
 });
 
@@ -49,5 +49,4 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('auth/{provider}/redirect',[ProviderController::class,'providerRedirect']
 )->name('provider.redirect');
-
 Route::get('auth/{provider}/callback',[ProviderController::class,'providerCallback']);

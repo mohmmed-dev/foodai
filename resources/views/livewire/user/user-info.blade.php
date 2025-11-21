@@ -114,12 +114,6 @@
                     <flux:error name="health_goals" />
                 </flux:field>
                 <flux:field>
-                    <flux:label>{{ __('Religion') }}</flux:label>
-                    <flux:switch placeholder="{{ __('Optional') }}" wire:model.defer="religion" />
-                    <flux:error name="religion" />
-                </flux:field>
-
-                <flux:field>
                     <flux:label>{{ __('Custom preferences') }}</flux:label>
                     <div class="grid grid-cols-2 gap-4 mt-2">
                         <flux:field>

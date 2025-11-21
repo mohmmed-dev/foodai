@@ -1,12 +1,12 @@
 <x-layouts.app :title="__('Dashboard')">
     <div class=" h-full w-full flex-1 flex-col gap-2 rounded-xl">
         <div class="relative h-full flex-1 overflow-hidden ">
-            <x-form />
+            <x-form :model="$model" />
         </div>
     </div>
 </x-layouts.app>
 
-{{-- <script>
+<script>
     function readCoverImage(input) {
         var file = input.files[0];
         var reader  = new FileReader();
@@ -16,4 +16,4 @@
             }
             reader.readAsDataURL(file);
         }
-</script> --}}
+</script>
