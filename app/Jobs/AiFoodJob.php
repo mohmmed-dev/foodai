@@ -37,23 +37,21 @@ class AiFoodJob implements ShouldQueue
         $content = $this->content;
         $user = $this->user;
         $personality = $user->personality == null ? null : $user->personality->toArray();
-        dd($personality);
-        // Prepare Image If Available
-        if($content->image_path) {
-            $imagePath = [Image::fromLocalPath(storage_path('app/public/'.$content->image_path))];
-        } else {
-            $imagePath = null;
-        }
+        // dd($personality);
+        // $content = $content->title , $imagePath;
         // Select Model AI
         $result = null;
+
         if($this->content->type == 'ProductAnalyzer') {
-            $result = HalalAnalyzer::HalalAnalyzerAi($content->title,$imagePath);
+            $result = HalalAnalyzer::HalalAnalyzerAi($content->title,$content->image_path);
         } elseif($this->content->type == 'MealCreator') {
-            $result = HalalCreator::HalalCreatorAI($content->title,$imagePath);
+            $result = HalalCreator::HalalCreatorAI($content->title,$content->image_path);
         } else {
 
         }
         // Save Result
+        dump($result);
+        // $result = json_decode($result, true);
         if($result) {
             $content->body = $result;
             $content->progress = 'completed';

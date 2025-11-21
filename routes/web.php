@@ -9,6 +9,7 @@ use Laravel\Fortify\Features;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\FoodController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,7 +20,13 @@ Route::get('user', UserController::class)
 
 Route::get('app/{content:slug}', ContentController::class)->name('content.show');
 
-Route::view('scan', 'scan')->name('scan');
+Route::controller(FoodController::class)->group(function() {
+    Route::get('ch', 'ch')->name('ch');
+    Route::get('creator', 'creator')->name('creator');
+    Route::get('analyzer', 'analyzer')->name('analyzer');
+    Route::post('scan', 'make')->name('scan');
+});
+
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

@@ -18,13 +18,14 @@ class Content extends Model
      *
      * @var array<int,string>
      */
-    
+
     protected $fillable = [
         'user_id',
         'title',
         'body',
         'type',
         'share',
+        'image_path',
         'error',
         'self',
     ];

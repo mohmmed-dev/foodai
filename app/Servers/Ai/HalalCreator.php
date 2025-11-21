@@ -8,10 +8,12 @@ use Prism\Prism\Schema\NumberSchema;
 use Prism\Prism\Schema\ObjectSchema;
 use Prism\Prism\Schema\StringSchema;
 use Prism\Prism\Schema\BooleanSchema;
+use Prism\Prism\ValueObjects\Media\Image;
+
 
 Class HalalCreator
 {
-    public static function HalalCreatorAI($withPrompt)
+    public static function HalalCreatorAI($title = null , $image_path = null)
     {
         $halalCreatorSchema = new ObjectSchema(
             name: 'halal_recipe_creator',
@@ -43,8 +45,11 @@ Class HalalCreator
                                         'fat' => new NumberSchema('fat', 'grams'),
                                     ]
                                 ),
-                                'vitamins' => new ObjectSchema(name: 'vitamins', description: 'Vitamins (dynamic keys)', additionalProperties: true),
-                                'minerals' => new ObjectSchema(name: 'minerals', description: 'Minerals (dynamic keys)', additionalProperties: true),
+                                'vitamins' => new StringSchema(name: 'vitamins', description: 'Vitamins (dynamic keys)'),
+                                'minerals' => new StringSchema(name: 'minerals', description: 'Minerals (dynamic keys)'),
+                                // 'vitamins' => new ObjectSchema(name: 'vitamins', description: 'Vitamins (dynamic keys)'),
+                                // 'minerals' => new ObjectSchema(name: 'minerals', description: 'Minerals (dynamic keys)'),
+
                             ]
                         ),
                         'health_score' => new NumberSchema('health_score', '0-100, personalized health score based on user profile'),
@@ -83,8 +88,8 @@ Class HalalCreator
                                                     'fat' => new NumberSchema('fat', 'grams'),
                                                 ]
                                             ),
-                                            'vitamins' => new ObjectSchema(name: 'vitamins', description: 'Vitamins (dynamic keys)', additionalProperties: true),
-                                            'minerals' => new ObjectSchema(name: 'minerals', description: 'Minerals (dynamic keys)', additionalProperties: true),
+                                            'vitamins' => new StringSchema(name: 'vitamins', description: 'Vitamins (dynamic keys)'),
+                                            'minerals' => new StringSchema(name: 'minerals', description: 'Minerals (dynamic keys)'),
                                         ]
                                     ),
                                     'personal_advice' => new StringSchema('personal_advice', 'Advice specific to this recipe for the user'),
@@ -103,13 +108,24 @@ Class HalalCreator
                 )
             ]
         );
+         // Prepare Image If Available
+        if($image_path) {
+            $imagePath = [Image::fromLocalPath(storage_path('app/public/photos/'.$image_path))];
+        } else {
+            $imagePath = null;
+        }
 
         $response = Prism::structured()
-            ->using(Provider::OpenAI, 'gpt-4o')
+            ->using(Provider::Gemini, 'gemini-2.0-flash')
             ->withSchema($halalCreatorSchema)
             ->withSystemPrompt(view('prompts.analyzer'))
-            ->withPrompt($withPrompt)
+            ->withPrompt('',$imagePath)
+            ->withClientOptions(['timeout' => 90])
             ->asStructured();
-        return $response;
+
+                
+
+
+        return $response->structured;
     }
 }

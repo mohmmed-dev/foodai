@@ -6,7 +6,7 @@
     </div>
 </x-layouts.app>
 
-<script>
+{{-- <script>
     function readCoverImage(input) {
         var file = input.files[0];
         var reader  = new FileReader();
@@ -16,4 +16,4 @@
             }
             reader.readAsDataURL(file);
         }
-</script>
+</script> --}}
